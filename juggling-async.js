@@ -1,36 +1,27 @@
 var http = require('http')
-var async = require('async')
+var bl = require('bl')
+var results = []
+var count = 0
 
-var url1 = process.argv[2]
-var url2 = process.argv[3]
-var url3 = process.argv[4]
+function printResults () {
+  for (var i = 0; i < 3; i++)
+    console.log(results[i])
+}
 
-async.series([
-  function(callback) {
-    var str = http.get(url1, function callback(response){
-        response.setEncoding('utf8')
-        var results = []
-        response.on("data", function (data) {
-            results.push(data)
-        })
-        response.on("end", function() {
-            var str = results.join("")
-        })
-    });
-    callback(null, str);
-  },
-  function(callback) {
-    var str2 = httpGet(url2)
-    callback(null, "str2");
-  },
-  function(callback) {
-    var str3 = httpGet(url3)
-    callback(null, "str3");
-  }
-],
-function(err, results) {
-  // console.log(results[0])
-  // console.log(results[1])
-  // console.log(results[2])
-});
+function httpGet (index) {
+  http.get(process.argv[2 + index], function (response) {
+    response.pipe(bl(function (err, data) {
+      if (err)
+        return console.error(err)
 
+      results[index] = data.toString()
+      count++
+
+      if (count == 3) // yay! we are the last one!
+        printResults()
+    }))
+  })
+}
+
+for (var i = 0; i < 3; i++)
+  httpGet(i)
