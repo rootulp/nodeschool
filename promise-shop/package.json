@@ -1,0 +1,19 @@
+{
+  "name": "promise-shop",
+  "version": "1.0.0",
+  "description": "Solutions to https://github.com/stevekane/promise-it-wont-hurt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rootulp/nodeschool.git"
+  },
+  "author": "Rootul Patel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rootulp/nodeschool/issues"
+  },
+  "homepage": "https://github.com/rootulp/nodeschool#readme"
+}
